@@ -143,7 +143,7 @@ with loading_placeholder.container():
         "<h1 style='text-align: center; color: #2C3E50;'>🗓️</h1>", unsafe_allow_html=True
     )
     st.markdown(
-        "<h2 style='text-align: center; color: #2C3E50;'>Welcome to the Smart Calendar Agent</h2>",
+        "<h2 style='text-align: center; color: #2C3E50;'>Welcome to Smart Calendar Agent</h2>",
         unsafe_allow_html=True,
     )
     with st.spinner("Getting things ready..."):
