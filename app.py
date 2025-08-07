@@ -3,8 +3,10 @@ import requests
 import json
 import base64
 import os
+from dotenv import load_dotenv
 
-WEBHOOK_URL = "https://hook.relay.app/api/v1/playbook/cmdytp9cl0n1a0om72rgb3jol/trigger/ULUcLdOiZrfdaDLDwqQRCg"
+load_dotenv()
+WEBHOOK_URL = os.getenv("WEBHOOK_URL")
 
 st.set_page_config(
     page_title="Smart Calendar Agent",
