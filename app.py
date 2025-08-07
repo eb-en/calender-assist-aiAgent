@@ -3,15 +3,9 @@ import requests
 import json
 import base64
 import os
-from dotenv import load_dotenv  # NEW
 
-# === LOAD ENVIRONMENT VARIABLES ===
-load_dotenv()  # NEW
-#WEBHOOK_URL = os.getenv("WEBHOOK_URL")  # NEW
 WEBHOOK_URL = "https://hook.relay.app/api/v1/playbook/cmdytp9cl0n1a0om72rgb3jol/trigger/ULUcLdOiZrfdaDLDwqQRCg"
 
-
-# === STREAMLIT PAGE CONFIGURATION ===
 st.set_page_config(
     page_title="Smart Calendar Agent",
     page_icon="🗓️",
@@ -19,8 +13,8 @@ st.set_page_config(
     initial_sidebar_state="collapsed",
 )
 
-# === CUSTOM CSS FOR A BETTER LOOK ===
-st.markdown("""
+st.markdown(
+    """
 <style>
 /* A light, soothing background */
 .stApp {
@@ -87,45 +81,51 @@ p {
     border-color: #FAEBCC;
 }
 </style>
-""", unsafe_allow_html=True)
+""",
+    unsafe_allow_html=True,
+)
 
-# === APP CONTENT ===
 st.title("🗓️ Smart Calendar Agent")
-st.write("Hello! I'm your personal assistant for scheduling events. Just tell me what you want to do in natural language, and I'll add it to your Google Calendar.")
+st.write(
+    "Hello! I'm your personal assistant for scheduling events. Just tell me what you want to do in natural language, and I'll add it to your Google Calendar."
+)
 
-# Create a text area for user input
 user_input = st.text_area(
     "What's on your mind? 👇",
     placeholder="e.g., Schedule a 30-minute meeting with the team on Tuesday at 10 AM.",
-    height=150
+    height=150,
 )
 
-# Use a container to hold the button and spinner
 col1, col2 = st.columns([1, 4])
 with col1:
     submit_button = st.button("🚀 Submit to Agent")
 
-# Handle the button click
 if submit_button:
     if not user_input:
         st.warning("⚠️ Please enter a request before submitting.")
     else:
         with st.spinner("Processing your request... Please wait a moment."):
-            # Prepare the data payload
-            payload = {
-                "email_body": user_input
-            }
+            payload = {"email_body": user_input}
 
             try:
-                # Send the POST request to the webhook
-                response = requests.post(WEBHOOK_URL, data=json.dumps(payload), headers={'Content-Type': 'application/json'})
-
-                # Check for a successful response
+                response = requests.post(
+                    WEBHOOK_URL,
+                    data=json.dumps(payload),
+                    headers={"Content-Type": "application/json"},
+                )
                 if response.status_code == 200:
-                    st.success("🎉 Success! Your request has been sent to the agent. Check your calendar and email for the new event.")
+                    st.success(
+                        "🎉 Success! Your request has been sent to the agent. Check your calendar and email for the new event."
+                    )
                 else:
-                    st.error(f"❌ Oops! The agent returned an error: {response.status_code}.")
-                    st.write("Please check the webhook URL and your Relay.app workflow settings.")
+                    st.error(
+                        f"❌ Oops! The agent returned an error: {response.status_code}."
+                    )
+                    st.write(
+                        "Please check the webhook URL and your Relay.app workflow settings."
+                    )
             except requests.exceptions.RequestException as e:
                 st.error(f"⚠️ Failed to connect to the agent. Error: {e}")
-                st.write("Please ensure the webhook URL is correct and the Relay.app workflow is active.")
+                st.write(
+                    "Please ensure the webhook URL is correct and the Relay.app workflow is active."
+                )
