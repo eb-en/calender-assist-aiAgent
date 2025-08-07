@@ -21,39 +21,39 @@ def main_app():
     st.markdown(
         """
     <style>
-    /* A light, soothing background */
+
     .stApp {
         background-color: #F0F2F6; 
         color: #333333;
     }
-    /* Main container styling with a clean, rounded look */
+
     .main .block-container {
         background-color: #FFFFFF;
         border-radius: 15px;
         padding: 3rem;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08); /* Soft shadow for depth */
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08); 
     }
-    /* Header styling */
+
     h1, h2, h3 {
-        color: #2C3E50; /* Dark blue for a professional feel */
+        color: #2C3E50; 
     }
-    /* Paragraph text */
+
     p {
         font-size: 1.1rem;
         color: #555555;
     }
-    /* Text area styling */
-    .stTextArea textarea {
+
+    .stTextArea textarea, .stTextInput input {
         background-color: #F9F9FB;
-        border: 2px solid #BDC3C7; /* Subtle border */
+        border: 2px solid #BDC3C7; 
         border-radius: 8px;
         padding: 10px;
         color: #333;
         font-size: 1rem;
     }
-    /* Button styling */
+
     .stButton > button {
-        background-color: #3498DB; /* A nice, vibrant blue */
+        background-color: #3498DB; 
         color: white;
         border-radius: 8px;
         padding: 10px 20px;
@@ -63,13 +63,14 @@ def main_app():
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     }
     .stButton > button:hover {
-        background-color: #2980B9; /* Darker blue on hover */
+        background-color: #2980B9; 
         color: white;
     }
-    /* Alert boxes */
+
     .stAlert {
         border-radius: 8px;
     }
+
     .stSuccess {
         background-color: #DFF0D8;
         color: #277943;
@@ -95,8 +96,13 @@ def main_app():
         "Hello! I'm your personal assistant for scheduling events. Just tell me what you want to do in natural language, and I'll add it to your Google Calendar."
     )
 
+    email_input = st.text_input(
+        "✉️ Your Google Calendar Email",
+        placeholder="e.g., your.email@example.com",
+    )
+
     user_input = st.text_area(
-        "What's on your mind? 👇",
+        "Draft your timeline here 👇",
         placeholder="e.g., Schedule a 30-minute meeting with the team on Tuesday at 10 AM.",
         height=150,
     )
@@ -106,11 +112,11 @@ def main_app():
         submit_button = st.button("🚀 Submit to Agent")
 
     if submit_button:
-        if not user_input:
+        if not user_input or not email_input:
             st.warning("⚠️ Please enter a request before submitting.")
         else:
             with st.spinner("Processing your request... Please wait a moment."):
-                payload = {"email_body": user_input}
+                payload = {"email_body": user_input, "email": email_input}
 
                 try:
                     response = requests.post(
@@ -136,18 +142,4 @@ def main_app():
                     )
 
 
-loading_placeholder = st.empty()
-
-with loading_placeholder.container():
-    st.markdown(
-        "<h1 style='text-align: center; color: #2C3E50;'>🗓️</h1>", unsafe_allow_html=True
-    )
-    st.markdown(
-        "<h2 style='text-align: center; color: #2C3E50;'>Welcome to Smart Calendar Agent</h2>",
-        unsafe_allow_html=True,
-    )
-    with st.spinner("Getting things ready..."):
-        time.sleep(2)
-
-loading_placeholder.empty()
 main_app()
