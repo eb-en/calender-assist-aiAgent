@@ -43,12 +43,21 @@ def main_app():
         color: #555555;
     }
 
-    .stTextArea textarea, .stTextInput input {
+    .stTextArea textarea {
         background-color: #F9F9FB;
         border: 2px solid #BDC3C7; 
         border-radius: 8px;
         padding: 10px;
         color: #333;
+        font-size: 1rem;
+    }
+
+    .stTextInput input { 
+        background-color: #F9F9FB;
+        border: 2px solid #BDC3C7; 
+        border-radius: 8px;
+        padding: 10px;
+        color: #FFFFFF;
         font-size: 1rem;
     }
 
