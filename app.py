@@ -103,7 +103,7 @@ def main_app():
 
     user_input = st.text_area(
         "Draft your timeline here 👇",
-        placeholder="e.g., Schedule a 30-minute meeting with the team on Tuesday at 10 AM.",
+        placeholder="e.g., Schedule a 30-minute meeting with the team on <Date> <Month> <Year> at 10 AM.",
         height=150,
     )
 
