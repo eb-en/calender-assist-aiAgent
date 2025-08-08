@@ -57,7 +57,7 @@ def main_app():
         border: 2px solid #BDC3C7; 
         border-radius: 8px;
         padding: 10px;
-        color: #FFFFFF;
+        color: #333;
         font-size: 1rem;
     }
 
